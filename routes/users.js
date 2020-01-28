@@ -5,10 +5,10 @@ const passport = require("../auth/local");
 const { loginRequired } = require("../auth/helpers");
 
 /* GET users listing. */
-router.get('/', loginRequired, db.getUsers)
+router.get("/", db.getUsers);
 router.post("/new", db.createUser);
-router.post("/login", passport.authenticate("local", {}), db.loginUser);
+router.post("/login", db.loginUser);
 router.get("/isLoggedIn", db.isLoggedIn);
-router.post("/logout", loginRequired, db.logoutUser);
+router.post("/logout", db.logoutUser);
 
 module.exports = router;
