@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { withRouter } from "react-router";
 import { Route, Switch } from "react-router-dom";
 import Auth from "../utils/Auth";
 import Form from "./Form";
@@ -33,20 +32,6 @@ class AuthForm extends Component {
       username: "",
       password: ""
     });
-    // axios.post("/users/new", { username, password }).then(() => {
-    //   Auth.authenticateUser(username);
-    //   axios
-    //     .post("/users/login", { username, password })
-    //     .then(() => {
-    //       this.props.checkAuthenticateStatus();
-    //     })
-    //     .then(() => {
-    //       this.setState({
-    //         username: "",
-    //         password: ""
-    //       });
-    //     });
-    // });
   };
 
   loginUser = e => {
