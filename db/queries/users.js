@@ -1,6 +1,6 @@
-const db = require('./connection')
+const db = require('../db')
 
-const authHelpers = require("../auth/helpers");
+const authHelpers = require("../../auth/helpers");
 
 function createUser(req, res, next) {
   const hash = authHelpers.createHash(req.body.password);
@@ -43,7 +43,7 @@ function getUsers(req, res) {
     results => {
       res.json(results)
     }
-  ).catch(err =>{
+  ).catch(err => {
     res.status(500).json({
       message: err
     });

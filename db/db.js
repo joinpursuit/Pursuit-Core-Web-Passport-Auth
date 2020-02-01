@@ -1,5 +1,5 @@
 
-var pgp = require("pg-promise")({});
+var pgp = require("pg-promise")();
 var connectionString = "postgres://localhost/userlist";
 var db = pgp(connectionString);
 
