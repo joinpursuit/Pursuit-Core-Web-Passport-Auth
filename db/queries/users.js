@@ -3,7 +3,7 @@ const db = require('../db')
 const authHelpers = require("../../auth/helpers");
 
 const createUser = async (user) => {
-  const passwordDigest = authHelpers.hashPassword(user.password);
+  const passwordDigest = await authHelpers.hashPassword(user.password);
 
   const inserUserQuery = `
       INSERT INTO users (username, password_digest) 
@@ -21,8 +21,15 @@ const createUser = async (user) => {
 }
 
 const getUserByUsername = async (username) => {
-  const user = await db.any("SELECT * FROM users WHERE username = $1", username)
-  return user;
+  try {
+    const user = await db.one("SELECT * FROM users WHERE username = $1", username)
+    return user;
+  } catch (err) {
+    // User not found by the given username
+    if (err.message === "No data returned from the query") {
+      return null
+    }
+  }
 }
 
 const getAllUsers = async () => {
