@@ -15,7 +15,7 @@ passport.use(new LocalStrategy(async (username, password, done) => {
       return done(null, false)
     }
 
-    delete user.password_digest; // Delete password_diggest from user object to not expose it accidentally
+    delete user.password_digest; // Delete password_digest from user object to prevent exposing it accidentally
     done(null, user);
 
   } catch (err) {

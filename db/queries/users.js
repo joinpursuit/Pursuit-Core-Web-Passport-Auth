@@ -5,18 +5,18 @@ const authHelpers = require("../../auth/helpers");
 const createUser = async (user) => {
   const passwordDigest = await authHelpers.hashPassword(user.password);
 
-  const inserUserQuery = `
+  const insertUserQuery = `
       INSERT INTO users (username, password_digest) 
         VALUES ($/username/, $/password/)
         RETURNING *
     `
 
-  const newUser = await db.one(inserUserQuery, {
+  const newUser = await db.one(insertUserQuery, {
     username: user.username,
     password: passwordDigest
   })
 
-  delete newUser.password_digest // Do not return the pasword_digest
+  delete newUser.password_digest // Do not return the password_digest.
   return newUser
 }
 
@@ -33,7 +33,9 @@ const getUserByUsername = async (username) => {
 }
 
 const getAllUsers = async () => {
-  const users = await db.any("SELECT * FROM users")
+  // Do not do SELECT * because it will contain the users password_digest. 
+  // Instead select only what is needed.
+  const users = await db.any("SELECT id, username FROM users")
   return users;
 }
 

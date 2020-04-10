@@ -18,9 +18,9 @@ router.post('/signup', async (req, res, next) => {
 });
 
 router.post('/login', passport.authenticate('local'), async (req, res, next) => {
-  res.send({
+  res.json({
     payload: req.user,
-    msg: "New user signup success",
+    msg: `Welcome ${req.user.username}. You are logged in!`,
     err: false
   })
 });
